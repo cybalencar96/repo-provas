@@ -1,5 +1,10 @@
-import app from './app';
+import '../src/setup.ts';
+import app, { init } from "./app";
 
 const PORT = process.env.PORT || 4000;
 
-app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
+init().then(() => {
+  app.listen(PORT, () => {
+    console.log(`Server is listening on port ${PORT}`);
+  });
+});
