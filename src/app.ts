@@ -4,6 +4,7 @@ import connectDatabase from "./database";
 import { serverErrorMiddleware } from './middlewares/serverErrorMiddleware';
 import examsRouter from './routers/examsRouter';
 import teacherRouter from './routers/teacherRouter';
+import subjectRouter from './routers/subjectRouter';
 
 const app = express();
 
@@ -14,8 +15,9 @@ app.get('/health', (req, res) => {
     res.send('aloo');
 });
 
-app.use('/exams', examsRouter)
-app.use('/teachers', teacherRouter)
+app.use('/exams', examsRouter);
+app.use('/teachers', teacherRouter);
+app.use('/subjects', subjectRouter);
 
 app.use(serverErrorMiddleware);
 
