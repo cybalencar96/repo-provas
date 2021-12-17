@@ -3,6 +3,8 @@ import cors from 'cors';
 import connectDatabase from "./database";
 import { serverErrorMiddleware } from './middlewares/serverErrorMiddleware';
 import examsRouter from './routers/examsRouter';
+import teacherRouter from './routers/teacherRouter';
+
 const app = express();
 
 app.use(cors());
@@ -13,6 +15,7 @@ app.get('/health', (req, res) => {
 });
 
 app.use('/exams', examsRouter)
+app.use('/teachers', teacherRouter)
 
 app.use(serverErrorMiddleware);
 

@@ -12,7 +12,7 @@ export class ExamEntity {
     @Column()
     category: string;
 
-    @ManyToOne(() => ClassEntity, { eager: true })
+    @ManyToOne(() => ClassEntity, classs => classs.id, { eager: true })
     @JoinColumn({ name: 'class_id' })
     class: ClassEntity;
 }

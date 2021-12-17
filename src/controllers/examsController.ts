@@ -1,17 +1,17 @@
 import { RequestHandler } from "express";
-import { getBySubjectValidation } from "../validation/examsValidation";
+import { getExamValidation } from "../validation/examsValidation";
 import * as examsService from '../services/examsService';
 import { HttpStatusCode } from '../enums/httpStatusCode';
 
-const getBySubject: RequestHandler = async (req, res, next) => {
-    const { error } = getBySubjectValidation.validate(req.body);
+const getExam: RequestHandler = async (req, res, next) => {
+    const { error } = getExamValidation.validate(req.body);
 
     if (error) {
         return res.status(HttpStatusCode.BAD_REQUEST).send(error.details[0].message);
     }
     
     try {
-        const result = await examsService.getBySubject(req.body.subject);
+        const result = await examsService.getExam(req.body);
         res.send(result)
     } catch (error) {
         next(error)
@@ -19,5 +19,5 @@ const getBySubject: RequestHandler = async (req, res, next) => {
 }
 
 export {
-    getBySubject,
+    getExam,
 }

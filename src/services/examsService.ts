@@ -1,20 +1,31 @@
 import { getRepository } from 'typeorm';
 import { ClassEntity } from '../entities/ClassEntity';
 import { ExamEntity } from '../entities/ExamEntity';
+import ExamError from '../errors/ExamError';
 
-async function getBySubject(subject: string) {
-    /* const exams = await getRepository(ExamEntity).find({
-        where: { subject },
-        relations: ['classes', 'subjects']
-    }); */
+async function getExam(filters: any) {
+    const {
+        teacher = '',
+        subject = '',
+        category = '',
+        name = '',
+    } = filters;
     
-    const exams = await getRepository(ClassEntity).find({
-        relations: ['subjects']
-    });
+    const exams = await getRepository(ExamEntity)
+        .createQueryBuilder('exams')
+        .leftJoinAndSelect('exams.class', 'class')
+        .leftJoinAndSelect('class.subject', 'subject')
+        .leftJoinAndSelect('class.teacher', 'teacher')
+        .where("subject.name LIKE :subject", { subject: `%${subject}%` })
+        .andWhere("teacher.name LIKE :teacher", { teacher: `%${teacher}%` })
+        .andWhere("exams.category LIKE :category", { category: `%${category}%` })
+        .andWhere("exams.name LIKE :name", { name: `%${name}%` })
+        .getMany()
+
     
     return exams;
 }
 
 export {
-    getBySubject,
+    getExam,
 }

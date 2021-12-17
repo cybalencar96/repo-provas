@@ -12,4 +12,7 @@ export class SubjectEntity {
 
     @Column()
     period: string;
+
+    @OneToMany(() => ClassEntity, classs => classs.subject)
+    classes: ClassEntity[];
 }

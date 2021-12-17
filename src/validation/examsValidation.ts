@@ -1,9 +1,12 @@
 import joi from 'joi';
 
-const getBySubjectValidation = joi.object({
-    subject: joi.string().required(),
+const getExamValidation = joi.object({
+    teacher: joi.string(),
+    subject: joi.string(),
+    category: joi.string(),
+    name: joi.string(),
 });
 
 export {
-    getBySubjectValidation,
+    getExamValidation,
 }

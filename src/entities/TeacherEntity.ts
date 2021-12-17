@@ -8,4 +8,7 @@ export class TeacherEntity {
     
     @Column()
     name: string;
+
+    @OneToMany(() => ClassEntity, classs => classs.teacher)
+    classes: ClassEntity[];
 }
