@@ -3,7 +3,7 @@ import { ClassEntity } from '../entities/ClassEntity';
 import { ExamEntity } from '../entities/ExamEntity';
 import ExamError from '../errors/ExamError';
 
-async function getExam(filters: any) {
+async function getExams(filters: any = {}) {
     const {
         teacher = '',
         subject = '',
@@ -27,5 +27,5 @@ async function getExam(filters: any) {
 }
 
 export {
-    getExam,
+    getExams,
 }

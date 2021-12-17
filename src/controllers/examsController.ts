@@ -3,7 +3,7 @@ import { getExamValidation } from "../validation/examsValidation";
 import * as examsService from '../services/examsService';
 import { HttpStatusCode } from '../enums/httpStatusCode';
 
-const getExam: RequestHandler = async (req, res, next) => {
+const getExams: RequestHandler = async (req, res, next) => {
     const { error } = getExamValidation.validate(req.body);
 
     if (error) {
@@ -11,7 +11,7 @@ const getExam: RequestHandler = async (req, res, next) => {
     }
     
     try {
-        const result = await examsService.getExam(req.body);
+        const result = await examsService.getExams(req.body);
         res.send(result)
     } catch (error) {
         next(error)
@@ -19,5 +19,5 @@ const getExam: RequestHandler = async (req, res, next) => {
 }
 
 export {
-    getExam,
+    getExams,
 }

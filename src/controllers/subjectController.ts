@@ -1,9 +1,9 @@
 import { RequestHandler } from "express";
 import * as subjectService from '../services/subjectService';
 
-const getAll: RequestHandler = async (req, res, next) => {
+const getSubjectsWithExams: RequestHandler = async (req, res, next) => {
     try {
-        const subjects = await subjectService.get();
+        const subjects = await subjectService.getWithExams();
 
         res.send(subjects);
     } catch (error) {
@@ -12,5 +12,5 @@ const getAll: RequestHandler = async (req, res, next) => {
 }
 
 export {
-    getAll,
+    getSubjectsWithExams,
 }

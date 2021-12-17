@@ -3,6 +3,6 @@ import * as teacherController from "../controllers/teacherController";
 
 const router = Router();
 
-router.get('/', teacherController.getAll);
+router.get('/', teacherController.getTeachersWithExams);
 
 export default router;

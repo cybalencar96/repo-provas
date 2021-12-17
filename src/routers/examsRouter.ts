@@ -3,6 +3,6 @@ import * as examsController from "../controllers/examsController";
 
 const router = Router();
 
-router.get('/', examsController.getExam);
+router.get('/', examsController.getExams);
 
 export default router;

@@ -3,6 +3,6 @@ import * as subjectController from "../controllers/subjectController";
 
 const router = Router();
 
-router.get('/', subjectController.getAll);
+router.get('/', subjectController.getSubjectsWithExams);
 
 export default router;
