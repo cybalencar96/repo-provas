@@ -9,7 +9,7 @@ const getExamValidation = joi.object({
 
 const postExamValidation = joi.object({
     name: joi.string().min(4).required(),
-	category: joi.string().min(2).required(),
+	category: joi.string().valid('P1', 'P2', 'P3', '2ch', 'Outras').required(),
 	subject: joi.string().min(4).required(),
 	teacher: joi.string().min(4).required(),
     linkPdf: joi.string().min(10).required(),

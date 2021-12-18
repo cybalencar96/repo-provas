@@ -11,10 +11,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get('/health', (req, res) => {
-    res.send('aloo');
-});
-
 app.use('/exams', examsRouter);
 app.use('/teachers', teacherRouter);
 app.use('/subjects', subjectRouter);
@@ -22,7 +18,7 @@ app.use('/subjects', subjectRouter);
 app.use(serverErrorMiddleware);
 
 export async function init () {
-    await connectDatabase();
+    return await connectDatabase();
 }
 
 export default app;
