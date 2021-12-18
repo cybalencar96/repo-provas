@@ -21,6 +21,7 @@ describe('subject ROUTES', () => {
     test('should return subject array with exams', async () => {
         const result = await supertest(app).get('/subjects');
 
-        expect(result).toEqual(mockSubjectWithExam);
+        expect(result.status).toEqual(200);
+        expect(result.body[0]).toEqual(mockSubjectWithExam);
     });
 });
