@@ -51,4 +51,17 @@ ALTER TABLE "classes" ADD CONSTRAINT "classes_fk1" FOREIGN KEY ("subject_id") RE
 
 
 
+INSERT INTO teachers (name) VALUES ('Mr James');
+INSERT INTO teachers (name) VALUES ('Ms Alice');
+INSERT INTO subjects (name, period) VALUES ('Matematica', '5');
+INSERT INTO subjects (name, period) VALUES ('Portugues', '3');
+INSERT INTO subjects (name, period) VALUES ('Ciencias', '1');
+INSERT INTO classes (teacher_id, subject_id) VALUES (1,1);
+INSERT INTO classes (teacher_id, subject_id) VALUES (2,2);
+INSERT INTO classes (teacher_id, subject_id) VALUES (2,3);
+INSERT INTO exams (name, category, class_id) VALUES ('2022.1', 'P1', 1);
+INSERT INTO exams (name, category, class_id) VALUES ('2022.1', 'P2', 1);
+INSERT INTO exams (name, category, class_id) VALUES ('2019.1', 'PF', 2);
+INSERT INTO exams (name, category, class_id) VALUES ('2019.1', '2ch', 3);
+
 

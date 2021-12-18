@@ -8,7 +8,9 @@
     "dev": "NODE_ENV=dev npx nodemon --watch \"src/**\" --ext \"ts,json\" --exec \"ts-node src/server.ts\"",
     "test": "NODE_ENV=test npx jest -i",
     "test:watch": "NODE_ENV=test npx jest -i --watchAll",
-    "test:coverage": "NODE_ENV=test npx jest -i --watchAll --coverage"
+    "test:coverage": "NODE_ENV=test npx jest -i --watchAll --coverage",
+    "typeorm": "ts-node ./node_modules/typeorm/cli",
+    "build": "npx tsc --outDir dist"
   },
   "keywords": [],
   "author": "",

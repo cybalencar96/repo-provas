@@ -4,7 +4,7 @@
       "esModuleInterop": true,
       "emitDecoratorMetadata": true,
       "experimentalDecorators": true,
-      "target": "ES6", // fix instanceof
+      "target": "ES5", // fix instanceof
       "moduleResolution": "node", // fix error caused by target ES6 
     }
 }
