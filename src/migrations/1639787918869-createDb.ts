@@ -11,18 +11,6 @@ export class createDb1639787918869 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "exams" ADD CONSTRAINT "FK_7fe60823f5f2c03867eafba8fa9" FOREIGN KEY ("class_id") REFERENCES "classes"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "classes" ADD CONSTRAINT "FK_b34c92e413c4debb6e0f23fed46" FOREIGN KEY ("teacher_id") REFERENCES "teachers"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "classes" ADD CONSTRAINT "FK_a72581b1b6a0ddf0bf5e8bebfc4" FOREIGN KEY ("subject_id") REFERENCES "subjects"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
-        await queryRunner.query(`INSERT INTO teachers (name) VALUES ('Mr James')`);
-        await queryRunner.query(`INSERT INTO teachers (name) VALUES ('Ms Alice')`);
-        await queryRunner.query(`INSERT INTO subjects (name, period) VALUES ('Matematica', '5')`);
-        await queryRunner.query(`INSERT INTO subjects (name, period) VALUES ('Portugues', '3')`);
-        await queryRunner.query(`INSERT INTO subjects (name, period) VALUES ('Ciencias', '1')`);
-        await queryRunner.query(`INSERT INTO classes (teacher_id, subject_id) VALUES (1,1)`);
-        await queryRunner.query(`INSERT INTO classes (teacher_id, subject_id) VALUES (2,2)`);
-        await queryRunner.query(`INSERT INTO classes (teacher_id, subject_id) VALUES (2,3)`);
-        await queryRunner.query(`INSERT INTO exams (name, category, class_id) VALUES ('2022.1', 'P1', 1)`);
-        await queryRunner.query(`INSERT INTO exams (name, category, class_id) VALUES ('2022.1', 'P2', 1)`);
-        await queryRunner.query(`INSERT INTO exams (name, category, class_id) VALUES ('2019.1', 'PF', 2)`);
-        await queryRunner.query(`INSERT INTO exams (name, category, class_id) VALUES ('2019.1', '2ch', 3)`);
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {

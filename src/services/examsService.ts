@@ -1,6 +1,10 @@
 import { getRepository } from 'typeorm';
-import { ClassEntity } from '../entities/ClassEntity';
 import { ExamEntity } from '../entities/ExamEntity';
+import { IExamController } from '../contracts/ExamContract';
+import { ClassEntity } from '../entities/ClassEntity';
+import * as subjectService from './subjectService';
+import * as teacherService from './teacherService';
+import * as classService from './classService';
 import ExamError from '../errors/ExamError';
 
 async function getExams(filters: any = {}) {
@@ -26,6 +30,33 @@ async function getExams(filters: any = {}) {
     return exams;
 }
 
+async function addExam(examInfos: IExamController) {
+    const subject = await subjectService.getOne(examInfos.subject);
+    const teacher = await teacherService.getOne(examInfos.teacher);
+
+    if (!subject || !teacher) {
+        throw new ExamError(`
+            ${!subject ? 'subject not found.' : ''}
+            ${!teacher ? 'teacher not found.' : ''}
+        `)
+    }
+
+    const classs = await classService.addClass({
+        teacher,
+        subject,
+    });
+
+    const exam = getRepository(ExamEntity).create({
+        name: examInfos.name,
+        category: examInfos.category,
+        linkPdf: examInfos.linkPdf,
+        class: classs,
+    });
+
+    return await getRepository(ExamEntity).save(exam);
+}
+
 export {
     getExams,
+    addExam,
 }

@@ -11,7 +11,7 @@ export class SubjectEntity {
     name: string;
 
     @Column()
-    period: string;
+    period: number;
 
     @OneToMany(() => ClassEntity, classs => classs.subject)
     classes: ClassEntity[];
