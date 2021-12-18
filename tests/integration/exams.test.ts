@@ -15,7 +15,7 @@ afterAll(async () => {
 describe('exams ROUTES', () => {
     let population: dbTest.Population;
 
-    beforeEach(async () => population = await dbTest.populateExams());
+    beforeEach(async () => population = await dbTest.populate('exams'));
     afterEach(async () => await dbTest.erase())
 
     test('should return array of exams', async () => {

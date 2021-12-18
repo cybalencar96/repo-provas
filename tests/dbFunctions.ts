@@ -14,28 +14,57 @@ async function close() {
     await getConnection().close();
 }
 
-async function populateExams() {
-    const validTeacher = factory.getValidTeacher();
-    const teacher = getRepository(TeacherEntity).create(validTeacher);
-    const newTeacher = await getRepository(TeacherEntity).save(teacher);
+async function populate(type: string) {
+    if (type === 'exams' || type === 'full') return await populateExams();
+    if (type === 'subjects') return await populateSubject();
+}
 
+async function createSubject() {
     const validSubject = factory.getValidSubject();
     const subject = getRepository(SubjectEntity).create(validSubject);
-    const newSubject = await getRepository(SubjectEntity).save(subject);
+    return await getRepository(SubjectEntity).save(subject);
+}
 
-    const validClass = factory.getValidClass(newTeacher, newSubject);
+async function createTeacher() {
+    const validTeacher = factory.getValidTeacher();
+    const teacher = getRepository(TeacherEntity).create(validTeacher);
+    return await getRepository(TeacherEntity).save(teacher);
+}
+
+async function createClass(teacher: TeacherEntity, subject: SubjectEntity){
+    const validClass = factory.getValidClass(teacher, subject);
     const classs = getRepository(ClassEntity).create(validClass);
-    const newClass = await getRepository(ClassEntity).save(classs);
+    return await getRepository(ClassEntity).save(classs);
+}
 
-    const validExam = factory.getValidExam(newClass);
+async function createExam(classs: ClassEntity) {
+    const validExam = factory.getValidExam(classs);
     const exam = getRepository(ExamEntity).create(validExam);
-    const newExam = await getRepository(ExamEntity).save(exam);
+    return await getRepository(ExamEntity).save(exam);
+}
+
+async function populateExams(): Promise<Population> {
+    const teacher = await createTeacher();
+    const subject = await createSubject();
+    const classs = await createClass(teacher, subject);
+    const exam = await createExam(classs);
 
     return {
-        teacher: newTeacher,
-        subject: newSubject,
-        class: newClass,
-        exam: newExam,
+        teacher,
+        subject,
+        class: classs,
+        exam,
+    }
+}
+
+async function populateSubject(): Promise<Population> {
+    const subject = await createSubject();
+
+    return {
+        teacher: null,
+        subject,
+        class: null,
+        exam: null,
     }
 }
 
@@ -54,7 +83,7 @@ interface Population {
 }
 
 export {
-    populateExams,
+    populate,
     close,
     init,
     erase,
