@@ -2,7 +2,12 @@ import { getRepository } from 'typeorm';
 import { TeacherEntity } from '../entities/TeacherEntity';
 import * as examsService from './examsService';
 import { TeacherWIthExams, Teacher} from '../contracts/TeacherContracts';
-import { ClassEntity } from '../entities/ClassEntity';
+
+interface TeacherWithSubjects {
+    id: number;
+    name: string;
+    subjects: string[];
+}
 
 async function getWithExams(): Promise<TeacherWIthExams[]> {
     const teachers = await getRepository(TeacherEntity).find();
@@ -36,7 +41,7 @@ async function getOne(teacherName: string): Promise<TeacherEntity> {
     return teachers[0];
 }
 
-async function getMany(filters: any = {}): Promise<TeacherEntity[]> {
+async function getMany(filters: any = {}): Promise<TeacherWithSubjects[]> {
     const {
         name = '',
         subject = '',
@@ -50,7 +55,7 @@ async function getMany(filters: any = {}): Promise<TeacherEntity[]> {
     .andWhere("subject.name ILIKE :subject", { subject: `%${subject}%` })
     .getMany()
 
-    return teachers;
+    return teachers.map(teacher => teacher.getWithSubjects());
 }
 
 export {
