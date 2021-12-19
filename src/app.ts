@@ -5,8 +5,13 @@ import { serverErrorMiddleware } from './middlewares/serverErrorMiddleware';
 import examsRouter from './routers/examsRouter';
 import teacherRouter from './routers/teacherRouter';
 import subjectRouter from './routers/subjectRouter';
+
+
 import multer from 'multer';
 import multerConfig from './multer.config';
+import { getRepository } from 'typeorm';
+import { FileEntity } from './entities/FileEntity';
+
 
 const app = express();
 
@@ -18,7 +23,16 @@ app.use('/teachers', teacherRouter);
 app.use('/subjects', subjectRouter);
 
 app.post('/myfile', multer(multerConfig).single('file') ,async (req, res) => {
-    return res.send(req.file)
+    const file = getRepository(FileEntity).create({
+        name: req.file.originalname,
+        url: '',
+        size: req.file.size,
+        key: req.file.filename,
+    });
+
+    const newFile = await getRepository(FileEntity).save(file);
+
+    return res.send(newFile)
 })
 
 app.use(serverErrorMiddleware);
