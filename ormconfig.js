@@ -2,7 +2,7 @@ module.exports = {
   type: "postgres",
   url: process.env.TYPEORM_DB_URL,
   migrationsTableName: "migrations",
-  entities: ["dist/entities/*{.js, .ts}"],
+  entities: ["dist/entities/*.js"],
   migrations: ["dist/migrations/*.js"],
   cli: {
     migrationsDir: "src/migrations",
