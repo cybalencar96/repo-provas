@@ -1,7 +1,7 @@
 import { RequestHandler } from "express";
 import * as teacherService from '../services/teacherService';
 import { getManyValidation } from "../validation/teachersValidation";
-import { HttpStatusCode } from '../enums/HttpStatusCode';
+import { HttpStatusCode } from '../enums/httpStatusCode';
 
 const getTeachersWithExams: RequestHandler = async (req, res, next) => {
     try {
