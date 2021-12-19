@@ -9,7 +9,7 @@ const getSubjectsWithExams: RequestHandler = async (req, res, next) => {
 
         res.send(subjects);
     } catch (error) {
-        next(error);
+        next(error)
     }
 }
 
