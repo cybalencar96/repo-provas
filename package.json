@@ -4,13 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prod": "NODE_ENV=prod npx nodemon --watch \"src/**\" --ext \"ts,json\" --exec \"ts-node src/server.ts\"",
+    "start": "NODE_ENV=prod NODE_TLS_REJECT_UNAUTHORIZED=0 node dist/server.js",
     "dev": "NODE_ENV=dev npx nodemon --watch \"src/**\" --ext \"ts,json\" --exec \"ts-node src/server.ts\"",
     "test": "NODE_ENV=test npx jest -i",
     "test:watch": "NODE_ENV=test npx jest -i --watchAll",
     "test:coverage": "NODE_ENV=test npx jest -i --watchAll --coverage",
     "typeorm": "ts-node ./node_modules/typeorm/cli",
-    "build": "npx tsc --outDir dist"
+    "build": "NODE_ENV=prod npx tsc --outDir dist"
   },
   "keywords": [],
   "author": "",
