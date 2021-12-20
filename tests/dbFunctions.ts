@@ -5,6 +5,7 @@ import { TeacherEntity } from '../src/entities/TeacherEntity';
 import { ClassEntity } from '../src/entities/ClassEntity';
 import { SubjectEntity } from '../src/entities/SubjectEntity';
 import * as factory from './factories/factories';
+import { FileEntity } from '../src/entities/FileEntity';
 
 async function init() {
     await initializeApp();
@@ -37,23 +38,31 @@ async function createClass(teacher: TeacherEntity, subject: SubjectEntity){
     return await getRepository(ClassEntity).save(classs);
 }
 
-async function createExam(classs: ClassEntity) {
-    const validExam = factory.getValidExam(classs);
+async function createExam(classs: ClassEntity, file: FileEntity) {
+    const validExam = factory.getValidExam(classs, file);
     const exam = getRepository(ExamEntity).create(validExam);
     return await getRepository(ExamEntity).save(exam);
+}
+
+async function createFile(): Promise<FileEntity> {
+    const validFile = factory.getValidFile();
+    const file = getRepository(FileEntity).create(validFile);
+    return await getRepository(FileEntity).save(file);
 }
 
 async function populateExams(): Promise<Population> {
     const teacher = await createTeacher();
     const subject = await createSubject();
     const classs = await createClass(teacher, subject);
-    const exam = await createExam(classs);
+    const file = await createFile();
+    const exam = await createExam(classs, file);
 
     return {
         teacher,
         subject,
         class: classs,
         exam,
+        file,
     }
 }
 
@@ -65,6 +74,7 @@ async function populateSubject(): Promise<Population> {
         subject,
         class: null,
         exam: null,
+        file: null,
     }
 }
 
@@ -73,6 +83,7 @@ async function erase() {
     await getRepository(ClassEntity).delete({});
     await getRepository(TeacherEntity).delete({});
     await getRepository(SubjectEntity).delete({});
+    await getRepository(FileEntity).delete({});
 }
 
 interface Population {
@@ -80,6 +91,7 @@ interface Population {
     subject: SubjectEntity;
     class: ClassEntity;
     exam: ExamEntity;
+    file: FileEntity;
 }
 
 export {
