@@ -3,6 +3,7 @@ import path from 'path';
 import crypto from 'crypto';
 import multerS3 from 'multer-s3';
 import aws from 'aws-sdk';
+import UploadError from './errors/UploadError';
 
 const storageTypes = {
     local: multer.diskStorage({
@@ -43,16 +44,13 @@ const multerConfig = {
     },
     fileFilter: (_req: any, file: any, cb: any) => {
         const allowedMimes = [
-            'image/jpeg',
-            'image/pjpeg',
-            'image/png',
-            'image/gif',
+            'application/pdf'
         ]
 
         if (allowedMimes.includes(file.mimetype)) {
             cb(null, true);
         } else {
-            cb(new Error('invalid file type'));
+            cb(new UploadError('invalid file type'));
         }
     },
 }
