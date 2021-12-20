@@ -14,9 +14,6 @@ export class ExamEntity {
     @Column()
     category: string;
 
-    @Column({ name: 'link_pdf' })
-    linkPdf: string;
-
     @ManyToOne(() => ClassEntity, classs => classs.id, { eager: true })
     @JoinColumn({ name: 'class_id' })
     class: ClassEntity;

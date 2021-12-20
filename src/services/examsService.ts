@@ -57,7 +57,7 @@ async function addExam(examInfos: IExamController, uploadedFile: Express.MulterS
 
     const file = getRepository(FileEntity).create({
         name: originalname,
-        url: location,
+        url: location || 'https://www.google.com',
         size: size,
         key: key ? key : filename,
     });
@@ -67,7 +67,6 @@ async function addExam(examInfos: IExamController, uploadedFile: Express.MulterS
     const exam = getRepository(ExamEntity).create({
         name: examInfos.name,
         category: examInfos.category,
-        linkPdf: examInfos.linkPdf,
         class: classs,
         file: newFile,
     });

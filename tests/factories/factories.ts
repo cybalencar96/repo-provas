@@ -9,7 +9,6 @@ function getValidExam(classs: ClassEntity) {
         name: faker.name.findName(),
         category: possibleCategories[faker.datatype.number(4)],
         class: classs,
-        linkPdf: faker.internet.url(),
     }
 }
 

@@ -12,7 +12,6 @@ const postExamValidation = joi.object({
 	category: joi.string().valid('P1', 'P2', 'P3', '2ch', 'Outras').required(),
 	subject: joi.string().min(4).required(),
 	teacher: joi.string().min(4).required(),
-    linkPdf: joi.string().min(10).required(),
 });
 
 export {

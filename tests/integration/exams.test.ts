@@ -31,7 +31,6 @@ describe('exams ROUTES', () => {
             category: 'P2',
             subject: population.subject.name,
             teacher: population.teacher.name,
-            linkPdf: 'https://www.youtube.com',
         }
 
         const result = await supertest(app).post('/exams').send(exam);
