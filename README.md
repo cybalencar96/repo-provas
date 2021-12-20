@@ -100,7 +100,7 @@ npm run build
 6. Create tables in database
 
 ```sh
-npm run typeorm migration:generate -- -n createDb
+npm run typeorm migration:run
 ```
 
 <br />
@@ -111,3 +111,20 @@ npm run typeorm migration:generate -- -n createDb
 ```sh
 npm run dev
 ```
+
+### **Setting up a few values in db**
+
+```sql
+INSERT INTO teachers ("name") VALUES ('Mr James');
+INSERT INTO teachers ("name") VALUES ('Ms Alice');
+INSERT INTO subjects ("name", "period") VALUES ('Matematica', 5);
+INSERT INTO subjects ("name", "period") VALUES ('Portugues', 3);
+INSERT INTO classes ("teacher_id", "subject_id") VALUES (1,1);
+INSERT INTO classes ("teacher_id", "subject_id") VALUES (2,2);
+INSERT INTO classes ("teacher_id", "subject_id") VALUES (1,2);
+```
+
+<br />
+<br />
+
+## **Ready to go!**
