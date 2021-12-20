@@ -87,17 +87,23 @@ AWS_DEFAULT_REGION=YOUR_REGION
 TYPEORM_DB_URL=postgres://YOUR_USER:YOUR_PASSWORD@YOUR_HOST:YOUR_PORT/repoprovas
 ```
 
-4. Build app
+4. Create a .env file in backend root folder with following env variables
+```sh
+TYPEORM_DB_URL=postgres://YOUR_USER:YOUR_PASSWORD@YOUR_HOST:YOUR_PORT/repoprovas
+```
+
+
+5. Build app
 
 ```sh
 npm run build
 ```
 
-5. Create a postgres database named **repoprovas**
+6. Create a postgres database named **repoprovas**
 
 ```sh 
 ```
-6. Create tables in database
+7. Create tables in database
 
 ```sh
 npm run typeorm migration:run
