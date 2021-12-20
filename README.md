@@ -83,8 +83,6 @@ AWS_ACCESS_KEY_ID=YOUR_KEY_ID
 AWS_SECRET_ACCESS_KEY=YOUR_SECRET
 
 AWS_DEFAULT_REGION=YOUR_REGION
-
-TYPEORM_DB_URL=postgres://YOUR_USER:YOUR_PASSWORD@YOUR_HOST:YOUR_PORT/repoprovas
 ```
 
 4. Create a .env file in backend root folder with following env variables
