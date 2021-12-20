@@ -6,6 +6,13 @@ import examsRouter from './routers/examsRouter';
 import teacherRouter from './routers/teacherRouter';
 import subjectRouter from './routers/subjectRouter';
 
+
+import multer from 'multer';
+import multerConfig from './multer.config';
+import { getRepository } from 'typeorm';
+import { FileEntity } from './entities/FileEntity';
+
+
 const app = express();
 
 app.use(cors());

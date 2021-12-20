@@ -3,6 +3,7 @@ import supertest from 'supertest';
 import app from '../../src/app';
 import { mockExam } from '../mocks/examMocks';
 import * as dbTest from '../dbFunctions';
+import { deleteFilesFromUploads } from '../utils/helpers';
 
 beforeAll(async () => {
     await dbTest.init();
@@ -16,7 +17,7 @@ describe('exams ROUTES', () => {
     let population: dbTest.Population;
 
     beforeEach(async () => population = await dbTest.populate('exams'));
-    afterEach(async () => await dbTest.erase())
+    afterEach(async () => await dbTest.erase());
 
     test('should return array of exams', async () => {
         const result = await supertest(app).get('/exams');
@@ -25,18 +26,19 @@ describe('exams ROUTES', () => {
         expect(result.body[0]).toEqual(mockExam);
     });
 
-    test('should return exam when added', async () => {
-        const exam = {
-            name: '2018.2',
-            category: 'P2',
-            subject: population.subject.name,
-            teacher: population.teacher.name,
-            linkPdf: 'https://www.youtube.com',
-        }
+    test('should return 200 and exam when added', async () => {
+        const result = await supertest(app)
+            .post('/exams/')
+            .set('Content-Type','multipart/form-data')
+            .field('name', '2018.2')
+            .field('category', 'P2')
+            .field('subject', population.subject.name)
+            .field('teacher', population.teacher.name)
+            .attach('file', 'tests/mocks/teste.pdf')
 
-        const result = await supertest(app).post('/exams').send(exam);
-        
         expect(result.status).toEqual(200);
         expect(result.body).toEqual(mockExam);
+
+        deleteFilesFromUploads(result.body.file.key);
     });
 });

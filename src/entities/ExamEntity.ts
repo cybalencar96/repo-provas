@@ -1,6 +1,7 @@
 import { allow } from "joi";
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToOne } from "typeorm";
 import { ClassEntity } from "./ClassEntity";
+import { FileEntity } from './FileEntity';
 
 @Entity('exams')
 export class ExamEntity {
@@ -13,10 +14,11 @@ export class ExamEntity {
     @Column()
     category: string;
 
-    @Column({ name: 'link_pdf' })
-    linkPdf: string;
-
     @ManyToOne(() => ClassEntity, classs => classs.id, { eager: true })
     @JoinColumn({ name: 'class_id' })
     class: ClassEntity;
+
+    @OneToOne(() => FileEntity, { eager: true })
+    @JoinColumn({ name: 'file_id' })
+    file: FileEntity;
 }

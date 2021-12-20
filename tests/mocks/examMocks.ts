@@ -4,7 +4,6 @@ const mockExam: IExamService = {
     id: expect.any(Number),
     name: expect.any(String),
     category: expect.any(String),
-    linkPdf: expect.any(String),
     class: {
         id: expect.any(Number),
         subject: {
@@ -16,6 +15,13 @@ const mockExam: IExamService = {
             id: expect.any(Number),
             name: expect.any(String),
         }
+    },
+    file: {
+        id: expect.any(Number),
+        name: expect.any(String),
+        url: expect.any(String),
+        size: expect.any(Number),
+        key: expect.any(String),
     }
 };
 

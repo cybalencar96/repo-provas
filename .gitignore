@@ -5,3 +5,4 @@
 .env.dev
 
 /dist
+/src/tmp

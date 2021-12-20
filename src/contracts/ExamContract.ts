@@ -3,14 +3,12 @@ interface IExamController {
     subject: string;
     category: string;
     name: string;
-    linkPdf: string;
 }
 
 interface IExamService {
     id: number,
 	name: string,
     category: string,
-    linkPdf: string,
     class: {
         id: number,
         subject: {
@@ -23,6 +21,13 @@ interface IExamService {
             name: string,
         }
     }
+    file: {
+		id: number,
+		name: string,
+		url: string,
+		size: number,
+		key: string
+	},
 }
 
 export {

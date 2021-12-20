@@ -20,13 +20,19 @@ const getExams: RequestHandler = async (req, res, next) => {
 
 const addExam: RequestHandler = async (req, res, next) => {
     const { error } = postExamValidation.validate(req.body);
-
+    
     if (error) {
         return res.status(HttpStatusCode.BAD_REQUEST).send(error.details[0].message);
     }
 
+    if (!req.file) {
+        return res.status(HttpStatusCode.BAD_REQUEST).send('file is missing')
+    }
+    
+    const typedFile = req.file as Express.MulterS3.File
+
     try {
-        const addedExam = await examsService.addExam(req.body);
+        const addedExam = await examsService.addExam(req.body, typedFile);
 
         res.send(addedExam);
     } catch (error) {
