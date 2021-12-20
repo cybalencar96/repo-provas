@@ -1,7 +1,7 @@
 import { getRepository } from 'typeorm';
 import { ExamEntity } from '../entities/ExamEntity';
 import { IExamController } from '../contracts/ExamContract';
-import { ClassEntity } from '../entities/ClassEntity';
+import { FileEntity } from '../entities/FileEntity';
 import * as subjectService from './subjectService';
 import * as teacherService from './teacherService';
 import * as classService from './classService';
@@ -20,6 +20,7 @@ async function getExams(filters: any = {}) {
         .leftJoinAndSelect('exams.class', 'class')
         .leftJoinAndSelect('class.subject', 'subject')
         .leftJoinAndSelect('class.teacher', 'teacher')
+        .leftJoinAndSelect('exams.file', 'file')
         .where("subject.name LIKE :subject", { subject: `%${subject}%` })
         .andWhere("teacher.name LIKE :teacher", { teacher: `%${teacher}%` })
         .andWhere("exams.category LIKE :category", { category: `%${category}%` })
@@ -30,7 +31,15 @@ async function getExams(filters: any = {}) {
     return exams;
 }
 
-async function addExam(examInfos: IExamController) {
+async function addExam(examInfos: IExamController, uploadedFile: Express.MulterS3.File) {
+    const {
+        originalname,
+        location,
+        size,
+        key,
+        filename,
+    } = uploadedFile;
+
     const subject = await subjectService.getOne(examInfos.subject);
     const teacher = await teacherService.getOne(examInfos.teacher);
 
@@ -46,11 +55,21 @@ async function addExam(examInfos: IExamController) {
         subject,
     });
 
+    const file = getRepository(FileEntity).create({
+        name: originalname,
+        url: location,
+        size: size,
+        key: key ? key : filename,
+    });
+
+    const newFile = await getRepository(FileEntity).save(file);
+
     const exam = getRepository(ExamEntity).create({
         name: examInfos.name,
         category: examInfos.category,
         linkPdf: examInfos.linkPdf,
         class: classs,
+        file: newFile,
     });
 
     return await getRepository(ExamEntity).save(exam);

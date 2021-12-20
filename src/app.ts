@@ -22,19 +22,6 @@ app.use('/exams', examsRouter);
 app.use('/teachers', teacherRouter);
 app.use('/subjects', subjectRouter);
 
-app.post('/myfile', multer(multerConfig).single('file') ,async (req, res) => {
-    const file = getRepository(FileEntity).create({
-        name: req.file.originalname,
-        url: '',
-        size: req.file.size,
-        key: req.file.filename,
-    });
-
-    const newFile = await getRepository(FileEntity).save(file);
-
-    return res.send(newFile)
-})
-
 app.use(serverErrorMiddleware);
 
 export async function init () {
